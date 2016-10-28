@@ -3,7 +3,7 @@ namespace SoundFingerprinting.DuplicatesDetector.Infrastructure
     using System.IO;
 
     using SoundFingerprinting.Audio;
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.DAO.Data;
 
     public class TrackHelper
     {
@@ -17,7 +17,7 @@ namespace SoundFingerprinting.DuplicatesDetector.Infrastructure
             this.audioService = audioService;
         }
 
-        public float[] GetTrackSamples(TrackData track, int sampleRate, int secondsToRead, int startAtSecond)
+        public AudioSamples GetTrackSamples(TrackData track, int sampleRate, int secondsToRead, int startAtSecond)
         {
             if (track == null || track.Album == null)
             {

@@ -12,7 +12,7 @@
     using Ninject;
 
     using SoundFingerprinting.Audio;
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.DAO.Data;
     using SoundFingerprinting.DuplicatesDetector.Infrastructure;
     using SoundFingerprinting.DuplicatesDetector.Model;
     using SoundFingerprinting.DuplicatesDetector.Services;

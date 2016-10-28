@@ -1,6 +1,6 @@
 ﻿namespace SoundFingerprinting.DuplicatesDetector.Model
 {
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.DAO.Data;
 
     public class ResultItem
     {

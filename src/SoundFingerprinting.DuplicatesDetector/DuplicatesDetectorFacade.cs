@@ -6,7 +6,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.Audio;
+    using SoundFingerprinting.DAO.Data;
     using SoundFingerprinting.DuplicatesDetector.Infrastructure;
     using SoundFingerprinting.DuplicatesDetector.Model;
     using SoundFingerprinting.DuplicatesDetector.ViewModel;
@@ -168,7 +169,7 @@
                 (int)((1024.0 * BufferSize) / ((double)SampleRate * SecondsToProcess / 1000 * 4 / 1024));
 
             // ~317 songs are allowed for 15 seconds snippet at 5512 Hz sample rate
-            var buffer = new BlockingCollection<Tuple<TrackData, float[]>>(Buffersize);
+            var buffer = new BlockingCollection<Tuple<TrackData, AudioSamples>>(Buffersize);
             var processedtracks = new List<TrackData>();
             var consumers = new List<Task>();
             var producers = new List<Task>();
@@ -196,7 +197,7 @@
                                 }
 
                                 TrackData track;
-                                float[] samples;
+                                AudioSamples samples;
                                 try
                                 {
                                     track = trackHelper.GetTrack(MinTrackLength, MaxTrackLength, file); // lame casting I know
@@ -211,7 +212,7 @@
 
                                 try
                                 {
-                                    buffer.TryAdd(new Tuple<TrackData, float[]>(track, samples), 1, token); /*producer*/
+                                    buffer.TryAdd(new Tuple<TrackData, AudioSamples>(track, samples), 1, token); /*producer*/
                                 }
                                 catch (OperationCanceledException)
                                 {
@@ -232,7 +233,7 @@
                 consumers.Add(Task.Factory.StartNew(
                     () =>
                     {
-                        foreach (Tuple<TrackData, float[]> tuple in buffer.GetConsumingEnumerable()) /*If OCE is thrown it will be caught in the caller's AggregateException*/
+                        foreach (Tuple<TrackData, AudioSamples> tuple in buffer.GetConsumingEnumerable()) /*If OCE is thrown it will be caught in the caller's AggregateException*/
                         {
                             if (tuple != null)
                             {

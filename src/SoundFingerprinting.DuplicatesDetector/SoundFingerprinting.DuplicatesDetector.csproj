@@ -72,8 +72,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.6.4, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.1.0.0.33376\lib\net45\Bass.Net.dll</HintPath>
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.0\lib\net45\Bass.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=2.6.1.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.2.6.1\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MathNet.Numerics.IO, Version=2.6.1.30, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.2.6.1\lib\net40\MathNet.Numerics.IO.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NAudio, Version=1.7.1.17, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,30 +91,31 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="SoundFingerprinting, Version=1.0.0.33376, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.1.0.0.33376\lib\net45\SoundFingerprinting.dll</HintPath>
+    <Reference Include="SoundFingerprinting, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.2.3.0\lib\net45\SoundFingerprinting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio, Version=1.0.0.33376, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.1.0.0.33376\lib\net45\SoundFingerprinting.Audio.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.0\lib\net45\SoundFingerprinting.Audio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio.Bass, Version=1.0.0.33376, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.1.0.0.33376\lib\net45\SoundFingerprinting.Audio.Bass.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio.Bass, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.0\lib\net45\SoundFingerprinting.Audio.Bass.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio.NAudio, Version=1.0.0.33376, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.Audio.NAudio.1.0.0.33376\lib\net45\SoundFingerprinting.Audio.NAudio.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio.NAudio, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.2.3.0\lib\net45\SoundFingerprinting.Audio.NAudio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Infrastructure, Version=1.0.0.32384, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.1.0.0.33376\lib\net45\SoundFingerprinting.Infrastructure.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Infrastructure, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.0\lib\net45\SoundFingerprinting.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />

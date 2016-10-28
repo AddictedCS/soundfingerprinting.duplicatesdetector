@@ -7,13 +7,11 @@
     using SoundFingerprinting.Audio;
     using SoundFingerprinting.Builder;
     using SoundFingerprinting.Configuration;
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.DAO.Data;
     using SoundFingerprinting.Strides;
 
     public class DuplicatesDetectorService
     {
-        private const int MinimumHammingSimilarity = 0;
-
         private const int ThresholdVotes = 5;
 
         private readonly IStride createStride = new IncrementalRandomStride(512, 1024, 128 * 64, 0);
@@ -39,7 +37,7 @@
         /// </summary>
         /// <param name = "samples">Down sampled to 5512 samples</param>
         /// <param name = "track">Track</param>
-        public void CreateInsertFingerprints(float[] samples, TrackData track)
+        public void CreateInsertFingerprints(AudioSamples samples, TrackData track)
         {
             if (track == null)
             {
@@ -51,7 +49,7 @@
             /*Create fingerprints that will be used as initial fingerprints to be queried*/
             var hashes = fingerprintCommandBuilder.BuildFingerprintCommand()
                                                        .From(samples)
-                                                       .WithFingerprintConfig(config => config.Stride = createStride)
+                                                       .WithFingerprintConfig(config => config.SpectrogramConfig.Stride = createStride)
                                                        .UsingServices(audioService)
                                                        .Hash()
                                                        .Result;
@@ -74,7 +72,7 @@
             {
                 var trackDuplicates = new HashSet<TrackData>();
 
-                var hashes = modelService.ReadHashDataByTrack(track.TrackReference);
+                var hashes = modelService.ReadHashedFingerprintsByTrack(track.TrackReference);
                 var result = queryFingerprintService.Query(modelService, hashes, queryConfiguration);
 
                 if (result.IsSuccessful)
@@ -82,11 +80,6 @@
                     foreach (var resultEntry in result.ResultEntries)
                     {
                         if (track.Equals(resultEntry.Track))
-                        {
-                            continue;
-                        }
-
-                        if (MinimumHammingSimilarity > resultEntry.Similarity)
                         {
                             continue;
                         }

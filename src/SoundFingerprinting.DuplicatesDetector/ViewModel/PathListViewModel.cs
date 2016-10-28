@@ -12,7 +12,7 @@
     using System.Windows.Forms;
     using System.Windows.Input;
 
-    using SoundFingerprinting.Data;
+    using SoundFingerprinting.DAO.Data;
     using SoundFingerprinting.DuplicatesDetector.Model;
     using SoundFingerprinting.DuplicatesDetector.Services;
 
