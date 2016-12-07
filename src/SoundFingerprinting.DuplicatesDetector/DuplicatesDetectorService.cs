@@ -10,11 +10,11 @@
     using SoundFingerprinting.DAO.Data;
     using SoundFingerprinting.Strides;
 
-    public class DuplicatesDetectorService
+    internal class DuplicatesDetectorService
     {
-        private const int ThresholdVotes = 5;
+        private const double FalsePositivesThreshold = 0.4;
 
-        private readonly IStride createStride = new IncrementalRandomStride(512, 1024, 128 * 64, 0);
+        private readonly IStride createStride = new IncrementalRandomStride(512, 1024);
 
         private readonly IModelService modelService;
 
@@ -23,6 +23,7 @@
         private readonly IFingerprintCommandBuilder fingerprintCommandBuilder;
 
         private readonly IQueryFingerprintService queryFingerprintService;
+
 
         public DuplicatesDetectorService(IModelService modelService, IAudioService audioService, IFingerprintCommandBuilder fingerprintCommandBuilder, IQueryFingerprintService queryFingerprintService)
         {
@@ -67,19 +68,19 @@
             var tracks = modelService.ReadAllTracks();
             var duplicates = new List<HashSet<TrackData>>();
             int total = tracks.Count, current = 0;
-            var queryConfiguration = new CustomQueryConfiguration { ThresholdVotes = ThresholdVotes, MaximumNumberOfTracksToReturnAsResult = int.MaxValue };
+            var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue };
             foreach (var track in tracks)
             {
                 var trackDuplicates = new HashSet<TrackData>();
 
                 var hashes = modelService.ReadHashedFingerprintsByTrack(track.TrackReference);
-                var result = queryFingerprintService.Query(modelService, hashes, queryConfiguration);
+                var result = queryFingerprintService.Query(hashes.ToList(), queryConfiguration, modelService);
 
-                if (result.IsSuccessful)
+                if (result.ContainsMatches)
                 {
                     foreach (var resultEntry in result.ResultEntries)
                     {
-                        if (track.Equals(resultEntry.Track))
+                        if (resultEntry.Confidence < FalsePositivesThreshold || track.Equals(resultEntry.Track))
                         {
                             continue;
                         }

@@ -36,7 +36,7 @@
 
         public double TrackLength
         {
-            get { return track.TrackLengthSec; }
+            get { return track.Length; }
         }
     }
 }

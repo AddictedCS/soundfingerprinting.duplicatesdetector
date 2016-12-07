@@ -15,7 +15,7 @@
     /// <summary>
     ///   Facade which prepares the data for analysis of the tracks (does all the "dirty job")
     /// </summary>
-    public class DuplicatesDetectorFacade : IDisposable
+    internal class DuplicatesDetectorFacade : IDisposable
     {
         /// <summary>
         ///   Maximum track length (track's bigger than this value will be discarded)
@@ -176,8 +176,7 @@
             CancellationToken token = cts.Token;
             var bag = new ConcurrentBag<string>(files);
 
-            int maxprod = numProcs > 2 ? 2 : numProcs;
-            for (var i = 0; i < maxprod; i++)
+            for (var i = 0; i < numProcs; i++)
             {
                 /*producers*/
                 producers.Add(Task.Factory.StartNew(
@@ -200,7 +199,7 @@
                                 AudioSamples samples;
                                 try
                                 {
-                                    track = trackHelper.GetTrack(MinTrackLength, MaxTrackLength, file); // lame casting I know
+                                    track = trackHelper.GetTrack(MinTrackLength, MaxTrackLength, file);
                                     samples = trackHelper.GetTrackSamples(track, SampleRate, SecondsToProcess, StartProcessingAtSecond);
                                 }
                                 catch

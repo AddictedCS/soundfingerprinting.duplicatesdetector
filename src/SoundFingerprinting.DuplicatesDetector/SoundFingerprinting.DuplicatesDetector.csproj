@@ -72,7 +72,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.6.4, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.1\lib\net45\Bass.Net.dll</HintPath>
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.3.0.0\lib\net45\Bass.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=2.6.1.30, Culture=neutral, processorArchitecture=MSIL">
@@ -83,32 +83,32 @@
       <HintPath>..\packages\MathNet.Numerics.2.6.1\lib\net40\MathNet.Numerics.IO.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NAudio, Version=1.7.1.17, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.7.1\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.2.3.1\lib\net45\SoundFingerprinting.dll</HintPath>
+    <Reference Include="SoundFingerprinting, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.3.0.0\lib\net45\SoundFingerprinting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.1\lib\net45\SoundFingerprinting.Audio.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.3.0.0\lib\net45\SoundFingerprinting.Audio.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio.Bass, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.1\lib\net45\SoundFingerprinting.Audio.Bass.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio.Bass">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.3.0.0\lib\net45\SoundFingerprinting.Audio.Bass.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Audio.NAudio, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.2.3.1\lib\net45\SoundFingerprinting.Audio.NAudio.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Audio.NAudio, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.3.0.0\lib\net45\SoundFingerprinting.Audio.NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SoundFingerprinting.Infrastructure, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.2.3.1\lib\net45\SoundFingerprinting.Infrastructure.dll</HintPath>
+    <Reference Include="SoundFingerprinting.Infrastructure, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundFingerprinting.Audio.Bass.3.0.0\lib\net45\SoundFingerprinting.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -286,15 +286,6 @@
     <Content Include="x64\bass_fx.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="x64\libfftw3-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\libfftw3f-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x64\libfftw3l-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="x64\tags.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -321,15 +312,6 @@
     </Content>
     <Content Include="x86\bass_aac.dll" />
     <Content Include="x86\bass_fx.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\libfftw3-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\libfftw3f-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\libfftw3l-3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="x86\tags.dll">
