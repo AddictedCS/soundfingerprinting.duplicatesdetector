@@ -68,7 +68,7 @@
             var tracks = modelService.ReadAllTracks();
             var duplicates = new List<HashSet<TrackData>>();
             int total = tracks.Count, current = 0;
-            var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue };
+            var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue, ThresholdVotes = 5 };
             foreach (var track in tracks)
             {
                 var trackDuplicates = new HashSet<TrackData>();

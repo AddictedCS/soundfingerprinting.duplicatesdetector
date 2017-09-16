@@ -25,7 +25,7 @@
         /// <summary>
         ///   Number of seconds to process from each song
         /// </summary>
-        private const int SecondsToProcess = 10;
+        private const int SecondsToProcess = 20;
 
         /// <summary>
         ///   Starting processing point

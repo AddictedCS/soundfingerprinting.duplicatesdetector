@@ -7,7 +7,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ciumac Sergiu")]
 [assembly: AssemblyProduct("DuplicateTracks")]
-[assembly: AssemblyCopyright("Copyright © Ciumac Sergiu 2011")]
+[assembly: AssemblyCopyright("Copyright © Ciumac Sergiu 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
