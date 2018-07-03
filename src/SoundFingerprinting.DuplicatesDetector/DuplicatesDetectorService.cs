@@ -50,7 +50,11 @@
             /*Create fingerprints that will be used as initial fingerprints to be queried*/
             var hashes = fingerprintCommandBuilder.BuildFingerprintCommand()
                                                        .From(samples)
-                                                       .WithFingerprintConfig(config => config.SpectrogramConfig.Stride = createStride)
+                                                       .WithFingerprintConfig(config =>
+                                                       {
+                                                            config.SpectrogramConfig.Stride = createStride;
+                                                            return config;
+                                                       })
                                                        .UsingServices(audioService)
                                                        .Hash()
                                                        .Result;
@@ -68,7 +72,7 @@
             var tracks = modelService.ReadAllTracks();
             var duplicates = new List<HashSet<TrackData>>();
             int total = tracks.Count, current = 0;
-            var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue, ThresholdVotes = 5 };
+            var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue, ThresholdVotes = 4 };
             foreach (var track in tracks)
             {
                 var trackDuplicates = new HashSet<TrackData>();
@@ -95,10 +99,7 @@
                     }
                 }
 
-                if (callback != null)
-                {
-                    callback.Invoke(track, total, ++current);
-                }
+                callback?.Invoke(track, total, ++current);
             }
 
             for (int i = 0; i < duplicates.Count - 1; i++)

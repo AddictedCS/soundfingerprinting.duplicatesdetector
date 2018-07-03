@@ -17,8 +17,8 @@
             ServiceContainer.Kernel.Bind<IWindowService>().To<WindowService>();
             ServiceContainer.Kernel.Bind<IGenericViewWindow>().To<GenericViewWindowService>();
 
-            ServiceContainer.Kernel.Bind<IFingerprintCommandBuilder>().To<FingerprintCommandBuilder>().InSingletonScope();
-            ServiceContainer.Kernel.Bind<IQueryFingerprintService>().To<QueryFingerprintService>().InSingletonScope();
+            ServiceContainer.Kernel.Bind<IFingerprintCommandBuilder>().ToConstant(FingerprintCommandBuilder.Instance).InSingletonScope();
+            ServiceContainer.Kernel.Bind<IQueryFingerprintService>().ToConstant(QueryFingerprintService.Instance).InSingletonScope();
             ServiceContainer.Kernel.Bind<DuplicatesDetectorFacade>().ToSelf().InSingletonScope();
             ServiceContainer.Kernel.Bind<TrackHelper>().ToSelf().InSingletonScope();
             ServiceContainer.Kernel.Bind<IAudioService>().To<BassAudioService>().InSingletonScope();
