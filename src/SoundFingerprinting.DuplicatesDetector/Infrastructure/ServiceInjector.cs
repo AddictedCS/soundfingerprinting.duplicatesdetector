@@ -23,8 +23,7 @@
             ServiceContainer.Kernel.Bind<TrackHelper>().ToSelf().InSingletonScope();
             ServiceContainer.Kernel.Bind<IAudioService>().To<BassAudioService>().InSingletonScope();
             ServiceContainer.Kernel.Bind<IPlayAudioFileService>().To<BassPlayAudioFileService>().InSingletonScope();
-            ServiceContainer.Kernel.Bind<ITagService>().To<BassTagService>().InSingletonScope();
-            ServiceContainer.Kernel.Bind<IModelService>().To<InMemoryModelService>().InSingletonScope();
+            ServiceContainer.Kernel.Bind<IAdvancedModelService>().To<InMemoryModelService>().InSingletonScope();
         }
     }
 }

@@ -26,14 +26,14 @@
 
         public string FileName
         {
-            get { return System.IO.Path.GetFileName(track.Album); }
+            get { return System.IO.Path.GetFileName(track.MetaFields["FilePath"]); }
         }
 
         public string Path
         {
-            get { return track.Album; }
+            get { return track.MetaFields["FilePath"]; }
         }
-
+        
         public double TrackLength
         {
             get { return track.Length; }

@@ -1,76 +1,50 @@
 namespace SoundFingerprinting.DuplicatesDetector.Infrastructure
 {
+    using System.Collections.Generic;
     using System.IO;
 
     using SoundFingerprinting.Audio;
     using SoundFingerprinting.DAO.Data;
+    using SoundFingerprinting.Data;
 
     public class TrackHelper
     {
-        private readonly ITagService tagService;
-
         private readonly IAudioService audioService;
 
-        public TrackHelper(ITagService tagService, IAudioService audioService)
+        public TrackHelper(IAudioService audioService)
         {
-            this.tagService = tagService;
             this.audioService = audioService;
         }
 
-        public AudioSamples GetTrackSamples(TrackData track, int sampleRate, int secondsToRead, int startAtSecond)
+        public AudioSamples GetTrackSamples(TrackInfo track, int sampleRate, int secondsToRead, int startAtSecond)
         {
-            if (track == null || track.Album == null)
+            string filePath = track.MetaFields["FilePath"];
+            if (track == null || filePath == null)
             {
                 return null;
             }
 
-            return audioService.ReadMonoSamplesFromFile(track.Album, sampleRate, secondsToRead, startAtSecond);
+            return audioService.ReadMonoSamplesFromFile(filePath, sampleRate, secondsToRead, startAtSecond);
         }
 
-        public TrackData GetTrack(int mintracklen, int maxtracklen, string filename)
+        public TrackInfo GetTrack(int mintracklen, int maxtracklen, string filename)
         {
-            TagInfo tags = tagService.GetTagInfo(filename); // get file tags
             string artist, title, isrc;
-            double duration;
-            int year;
-            if (tags == null)
-            {
-                /*The song does not contain any tags*/
-                artist = "Unknown Artist";
-                title = "Unknown Title";
-                isrc = "Uknown ISRC";
-                duration = new FileInfo(filename).Length;
-                year = 0;
-            }
-            else
-            {
-                /*The song contains related tags*/
-                artist = tags.Artist;
-                title = tags.Title;
-                duration = tags.Duration;
-                year = tags.Year;
-                isrc = tags.ISRC;
-            }
+            /*The song does not contain any tags*/
+            artist = "Unknown Artist";
+            title = "Unknown Title";
+            isrc = Path.GetFileNameWithoutExtension(filename);
+            var meta = new Dictionary<string, string>();
+            meta["FilePath"] = Path.GetFullPath(filename);
 
-            /*assign a name to music files that don't have tags*/
-            if (string.IsNullOrEmpty(artist))
-            {
-                artist = "Unknown Artist";
-            }
-
-            /*assign a title to music files that don't have tags*/
-            if (string.IsNullOrEmpty(title))
-            {
-                title = "Unknown Title";
-            }
-
+            double duration = audioService.GetLengthInSeconds(Path.GetFullPath(filename));
             /*check the duration of a music file*/
             if (duration < mintracklen || duration > maxtracklen)
             {
                 return null;
             }
 
-            return new TrackData(isrc, artist, title, Path.GetFullPath(filename), year, (int)duration);
+            return new TrackInfo(isrc, title, artist, meta, MediaType.Audio);
         }
     }
 }

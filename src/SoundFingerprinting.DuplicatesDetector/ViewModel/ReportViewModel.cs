@@ -268,7 +268,7 @@
                     {
                         array[i] = new object[4];
                         array[i][0] = setId;
-                        array[i][1] = track.Album;
+                        array[i][1] = track.MetaFields["FilePath"];
                         array[i][2] = track.Artist;
                         array[i][3] = track.Title;
                         i++;
@@ -374,13 +374,13 @@
                 int count = 1;
                 foreach (var duplicate in set)
                 {
-                    string fileName = Path.GetFileName(duplicate.Album); // Path is stored in album
+                    string fileName = Path.GetFileName(duplicate.MetaFields["FilePath"]); // Path is stored in album
                     if (!hasUniqueFiles)
                     {
                         fileName = string.Format("{0}_{1}", count, fileName);
                     }
 
-                    string srcPath = duplicate.Album;
+                    string srcPath = duplicate.MetaFields["FilePath"];
                     if (fileName != null)
                     {
                         string dstPath = Path.Combine(selectedPath, fileName);
@@ -389,7 +389,7 @@
                             try
                             {
                                 File.Move(srcPath, dstPath);
-                                duplicate.Album = dstPath;
+                                duplicate.MetaFields["FilePath"] = dstPath;
                             }
                             catch
                             {
@@ -408,7 +408,7 @@
             Dictionary<string, bool> distinct = new Dictionary<string, bool>();
             foreach (var track in source)
             {
-                string fileName = Path.GetFileName(track.Album);
+                string fileName = Path.GetFileName(track.MetaFields["FilePath"]);
                 if (fileName != null)
                 {
                     if (distinct.ContainsKey(fileName))

@@ -8,6 +8,7 @@
     using SoundFingerprinting.Builder;
     using SoundFingerprinting.Configuration;
     using SoundFingerprinting.DAO.Data;
+    using SoundFingerprinting.Data;
     using SoundFingerprinting.Strides;
 
     internal class DuplicatesDetectorService
@@ -16,7 +17,7 @@
 
         private readonly IStride createStride = new IncrementalRandomStride(512, 1024);
 
-        private readonly IModelService modelService;
+        private readonly IAdvancedModelService modelService;
 
         private readonly IAudioService audioService;
 
@@ -25,7 +26,7 @@
         private readonly IQueryFingerprintService queryFingerprintService;
 
 
-        public DuplicatesDetectorService(IModelService modelService, IAudioService audioService, IFingerprintCommandBuilder fingerprintCommandBuilder, IQueryFingerprintService queryFingerprintService)
+        public DuplicatesDetectorService(IAdvancedModelService modelService, IAudioService audioService, IFingerprintCommandBuilder fingerprintCommandBuilder, IQueryFingerprintService queryFingerprintService)
         {
             this.modelService = modelService;
             this.audioService = audioService;
@@ -38,28 +39,26 @@
         /// </summary>
         /// <param name = "samples">Down sampled to 5512 samples</param>
         /// <param name = "track">Track</param>
-        public void CreateInsertFingerprints(AudioSamples samples, TrackData track)
+        public void CreateInsertFingerprints(AudioSamples samples, TrackInfo track)
         {
             if (track == null)
             {
                 return; /*track is not eligible*/
             }
 
-            var trackReference = modelService.InsertTrack(track);
-           
             /*Create fingerprints that will be used as initial fingerprints to be queried*/
             var hashes = fingerprintCommandBuilder.BuildFingerprintCommand()
                                                        .From(samples)
                                                        .WithFingerprintConfig(config =>
                                                        {
-                                                            config.SpectrogramConfig.Stride = createStride;
+                                                            config.Stride = createStride;
                                                             return config;
                                                        })
                                                        .UsingServices(audioService)
                                                        .Hash()
                                                        .Result;
-           
-            modelService.InsertHashDataForTrack(hashes, trackReference);
+
+            modelService.Insert(track, hashes);
         }
 
         /// <summary>
@@ -69,7 +68,7 @@
         /// <returns>Sets of duplicates</returns>
         public HashSet<TrackData>[] FindDuplicates(Action<TrackData, int, int> callback)
         {
-            var tracks = modelService.ReadAllTracks();
+            var tracks = modelService.ReadAllTracks().ToList();
             var duplicates = new List<HashSet<TrackData>>();
             int total = tracks.Count, current = 0;
             var queryConfiguration = new DefaultQueryConfiguration { MaxTracksToReturn = int.MaxValue, ThresholdVotes = 4 };
@@ -77,8 +76,11 @@
             {
                 var trackDuplicates = new HashSet<TrackData>();
 
-                var hashes = modelService.ReadHashedFingerprintsByTrack(track.TrackReference);
-                var result = queryFingerprintService.Query(hashes.ToList(), queryConfiguration, modelService);
+                var hashedFingerprints = modelService.ReadHashedFingerprintsByTrack(track.TrackReference);
+                var max = hashedFingerprints.Max(_ => _.StartsAt);
+                var min = hashedFingerprints.Min(_ => _.StartsAt);
+                var hashes = new Hashes(hashedFingerprints, GetLength(min, max, queryConfiguration.FingerprintConfiguration.FingerprintLengthInSeconds));
+                var result = queryFingerprintService.Query(hashes, queryConfiguration, modelService);
 
                 if (result.ContainsMatches)
                 {
@@ -130,8 +132,13 @@
             var tracks = modelService.ReadAllTracks();
             foreach (var track in tracks)
             {
-                modelService.DeleteTrack(track.TrackReference);
+                modelService.DeleteTrack(track.Id);
             }
+        }
+
+        private static double GetLength(double min, double max, double fingerprintLengthInSeconds)
+        {
+            return max - min + fingerprintLengthInSeconds;
         }
     }
 }
