@@ -14,16 +14,6 @@
 
         public int SetId { get; private set; }
 
-        public string Title
-        {
-            get { return track.Title; }
-        }
-
-        public string Artist
-        {
-            get { return track.Artist; }
-        }
-
         public string FileName
         {
             get { return System.IO.Path.GetFileName(track.MetaFields["FilePath"]); }

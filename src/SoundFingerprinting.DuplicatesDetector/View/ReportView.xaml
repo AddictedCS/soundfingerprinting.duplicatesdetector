@@ -10,8 +10,6 @@
 		<WpfToolkit:DataGrid Grid.Row="0" x:Name="_dgvResults" Style="{StaticResource DataGrid}" ItemContainerStyle="{StaticResource ItemContStyle}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Results, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" MinHeight="300" MinWidth="600" VerticalAlignment="Stretch">
 			<WpfToolkit:DataGrid.Columns>
 				<WpfToolkit:DataGridTextColumn Header="Set#" Binding="{Binding SetId, UpdateSourceTrigger=PropertyChanged}" Width="1.5*" />
-				<WpfToolkit:DataGridTextColumn Header="Title" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Width="5*" />
-				<WpfToolkit:DataGridTextColumn Header="Artist" Binding="{Binding Artist, UpdateSourceTrigger=PropertyChanged}" Width="5*" />
 				<WpfToolkit:DataGridTextColumn Header="Filename" Binding="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" Width="8*" />
 			</WpfToolkit:DataGrid.Columns>
 			<WpfToolkit:DataGrid.ColumnHeaderStyle>

@@ -256,21 +256,17 @@
                 object[][] array = new object[totalItems][];
                 int i = 0;
                 int setId = 0;
-                array[i] = new object[4];
+                array[i] = new object[2];
                 array[i][0] = "Set ID";
                 array[i][1] = "Path";
-                array[i][2] = "Artist";
-                array[i][3] = "Title";
                 i++;
                 foreach (HashSet<TrackData> set in Sets)
                 {
                     foreach (TrackData track in set)
                     {
-                        array[i] = new object[4];
+                        array[i] = new object[2];
                         array[i][0] = setId;
                         array[i][1] = track.MetaFields["FilePath"];
-                        array[i][2] = track.Artist;
-                        array[i][3] = track.Title;
                         i++;
                     }
 
